@@ -8,6 +8,7 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import de.weloveapps.autotesting.databinding.ActivityMainBinding
 import de.weloveapps.autotesting.home.HomeController
+import de.weloveapps.autotesting.welcome.WelcomeController
 
 class MainActivity : AppCompatActivity() {
     private lateinit var router: Router
@@ -27,7 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         router = Conductor.attachRouter(this, binding.changeHandlerFrameLayout, savedInstanceState)
         if(!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(HomeController()))
+            router.setRoot(RouterTransaction.with(WelcomeController()))
+        }
+    }
+
+    override fun onBackPressed() {
+        if (!router.handleBack()) {
+            super.onBackPressed()
         }
     }
 }
